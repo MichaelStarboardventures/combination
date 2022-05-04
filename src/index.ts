@@ -6,3 +6,4 @@ import '@fontsource/roboto/700.css';
 export * from './section';
 export * from './tags';
 export * from './layout';
+export * from './button';
