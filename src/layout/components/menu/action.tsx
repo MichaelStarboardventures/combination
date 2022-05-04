@@ -1,13 +1,16 @@
 import React, { useContext } from 'react';
-import { IconButton as MuiIconButton, styled } from '@mui/material';
-import { MenuOpenOutlined } from '@mui/icons-material';
+import { IconButton as MuiIconButton } from '@mui/material';
+import styled from 'styled-components';
+import { MenuOpenOutlined as MuiMenuOpenOutlined } from '@mui/icons-material';
 import { MenuActionStyled } from '../../style';
 import { LayoutContext } from '../../layout';
 
-const IconButton = styled(MuiIconButton, {
-  shouldForwardProp: (propName: PropertyKey) => propName !== 'open',
-})<{ open: boolean }>(({ open }) => ({
+const IconButton = styled(MuiIconButton)<{ open: boolean }>(({ open }) => ({
   transform: `rotateY(${open ? 0 : '180deg'})`,
+}));
+
+const MenuOpenOutlined = styled(MuiMenuOpenOutlined)(({ theme }) => ({
+  color: `${theme.palette.mode === 'dark' ? '#fff' : 'unset'}`,
 }));
 
 export const Action = () => {

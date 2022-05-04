@@ -77,5 +77,11 @@ export type LayoutContextProps = {
    */
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 
+  /**
+   * 设置主题
+   * @param theme
+   */
   setTheme?: (theme: ThemeOptions) => void;
+
+  theme: ThemeOptions;
 } & LayoutProps;

@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useState } from 'react';
 import { Menu } from './components/menu';
 import { Content } from './components/content';
 import { ContainerStyled, MenuStyled } from './style';
-import { ThemeProps, ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import {
   createTheme,
   ThemeOptions,
@@ -13,6 +13,7 @@ import { LayoutProps, LayoutContextProps } from './layout.props';
 export const LayoutContext = createContext<{ api: LayoutContextProps }>({
   api: {
     open: true,
+    theme: {},
   },
 });
 
@@ -34,8 +35,6 @@ export const Layout: React.FC<LayoutProps> = ({
     setTheme(theme);
   }, []);
 
-  console.log(theme, 'theme config');
-
   return (
     <MuiThemeProvider theme={theme}>
       <ThemeProvider theme={theme}>
@@ -45,6 +44,7 @@ export const Layout: React.FC<LayoutProps> = ({
               open: menuOpen,
               setOpen: setMenuOpen,
               setTheme: useSetTheme,
+              theme,
               route,
               headerRender,
               rightContentRender,

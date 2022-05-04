@@ -1,17 +1,21 @@
 import React, { useContext } from 'react';
 import {
   Grid as MuiGrid,
-  Divider,
-  styled,
+  Divider as MuiDivider,
   Avatar,
   Stack as MuiStack,
   IconButton,
 } from '@mui/material';
-import { LightMode } from '@mui/icons-material';
+import styled from 'styled-components';
+import { LightMode, DarkMode } from '@mui/icons-material';
 import { LayoutContext } from '../../layout';
 
 const Grid = styled(MuiGrid)(() => ({
   height: 66,
+}));
+
+const Divider = styled(MuiDivider)(({ theme }) => ({
+  borderColor: `${theme.palette.divider}!important`,
 }));
 
 const Stack = styled(MuiStack)(() => ({
@@ -24,21 +28,45 @@ const size = {
   height: 24,
 };
 
-export const Header = () => {
-  const {
-    api: { headerRender, rightContentRender },
-  } = useContext(LayoutContext);
+const MuiDarkMode = styled(DarkMode)(({ theme }) => ({
+  color: `${theme?.palette?.mode === 'dark' ? '#fff' : 'unset'}`,
+}));
 
-  const defaultAvatar = (
+export const renderDefaultAvatar = () => {
+  const {
+    api: {
+      setTheme,
+      theme: { palette },
+    },
+  } = useContext(LayoutContext);
+  const mode = palette?.mode === 'light' ? 'dark' : 'light';
+  const ModeCom = mode === 'dark' ? LightMode : MuiDarkMode;
+
+  return (
     <>
-      <IconButton>
-        <LightMode sx={{ ...size }} />
+      <IconButton
+        onClick={() => {
+          setTheme &&
+            setTheme({
+              palette: { mode },
+            });
+        }}
+      >
+        <ModeCom sx={{ ...size }} />
       </IconButton>
       <IconButton>
         <Avatar sx={{ ...size }} />
       </IconButton>
     </>
   );
+};
+
+export const Header = () => {
+  const {
+    api: { headerRender, rightContentRender },
+  } = useContext(LayoutContext);
+
+  const defaultAvatar = renderDefaultAvatar();
 
   return (
     <>
